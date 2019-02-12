@@ -13,10 +13,18 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var naviApp: UINavigationController?
+    var homeVC: MoviesTableViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        homeVC = MoviesTableViewController(nibName: "MoviesTableViewController", bundle: Bundle.main)
+        naviApp = UINavigationController(rootViewController: homeVC!)
+        window?.rootViewController = naviApp
+        window?.makeKeyAndVisible()
+        
+        
         return true
     }
 
