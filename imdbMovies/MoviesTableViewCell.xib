@@ -11,12 +11,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesViewCell" customModule="imdbMovies" customModuleProvider="target">
             <connections>
                 <outlet property="movieImage" destination="vwW-mw-dkI" id="yKl-Rw-gGV"/>
-                <outlet property="movieTitleLabel" destination="p4r-qx-cA3" id="vvt-nt-pQF"/>
                 <outlet property="movieTitleRating" destination="zCw-qA-JdQ" id="jec-hE-kGd"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="moviesCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="101" id="Ndd-iD-025" customClass="MoviesViewCell" customModule="imdbMovies" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="moviesCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="moviesCell" rowHeight="101" id="Ndd-iD-025" customClass="MoviesTableViewCell" customModule="imdbMovies" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ndd-iD-025" id="bEr-lT-dzj">
@@ -53,6 +52,11 @@
                     <constraint firstItem="p4r-qx-cA3" firstAttribute="top" secondItem="bEr-lT-dzj" secondAttribute="top" constant="11" id="rnT-4c-p5I"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="movieImage" destination="vwW-mw-dkI" id="n5L-nP-vze"/>
+                <outlet property="movieTitleLabel" destination="p4r-qx-cA3" id="F6h-05-yjE"/>
+                <outlet property="movieTitleRating" destination="zCw-qA-JdQ" id="oxN-U9-bAN"/>
+            </connections>
             <point key="canvasLocation" x="40.799999999999997" y="-36.431784107946029"/>
         </tableViewCell>
     </objects>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoviesTableViewController:  UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesTableViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
@@ -17,26 +17,22 @@ class MoviesTableViewController:  UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-       moviesTableView.register(UINib(nibName: "MoviesTableViewCell.", bundle: Bundle.main), forCellReuseIdentifier: "moviesCell")
-        self.view.addSubview(moviesTableView)
-     
+        moviesTableView.register(UINib(nibName: "MoviesTableViewController", bundle: nil), forCellReuseIdentifier: "moviesCell")
+        moviesTableView.delegate = self
+        moviesTableView.dataSource = self
     }
 
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
      return  items.count
     }
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = Bundle.main.loadNibNamed("MoviesTableViewCell", owner: self, options: nil)?.first as! MoviesTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       //let cell = Bundle.main.loadNibNamed("MoviesTableViewCell", owner: self, options: nil)?.first as! MoviesTableViewCell
+  
+        let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
+
+        
         return cell
     }
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 300.0
-            // the height for custom cell 0
-        } else {
-            return 0.0
-        }
-}
-
+  
 }
