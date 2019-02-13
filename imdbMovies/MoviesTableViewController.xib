@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesTableViewController" customModule="imdbMovies" customModuleProvider="target">
             <connections>
                 <outlet property="moviesTableView" destination="Xf2-JR-pus" id="o7J-g7-vby"/>
-                <outlet property="view" destination="iN0-l3-epB" id="itw-ac-VTb"/>
+                <outlet property="view" destination="iN0-l3-epB" id="YVx-nD-QbZ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

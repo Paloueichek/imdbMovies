@@ -118,9 +118,9 @@
 				17FD58E72212B5F100DBAD1A /* MainCoordinator.swift */,
 				17FD58E52212B52B00DBAD1A /* Coordinator.swift */,
 				17FD58B422118C0400DBAD1A /* MoviesTableViewController.swift */,
+				17FD58ED2212FDB200DBAD1A /* MoviesTableViewCell.swift */,
 				17FD58E92212BCD400DBAD1A /* MoviesTableViewController.xib */,
 				17FD58EB2212FB8B00DBAD1A /* MoviesTableViewCell.xib */,
-				17FD58ED2212FDB200DBAD1A /* MoviesTableViewCell.swift */,
 			);
 			path = imdbMovies;
 			sourceTree = "<group>";
