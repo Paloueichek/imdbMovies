@@ -2,4 +2,69 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "imdbMovies/NetworkManager.swift"
+            timestampString = "571679035.489715"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "getData(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in imdbMovies.NetworkManager.getData(completion: (imdbMovies.Result&lt;imdbMovies.Movies&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "imdbMovies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/p.aloueichek/Desktop/Desktop/Develop/Xcode/imdbMovies/imdbMovies/NetworkManager.swift"
+                  timestampString = "571741565.972849"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "890">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in imdbMovies.NetworkManager.getData(completion: (imdbMovies.Result&lt;imdbMovies.Movies&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "imdbMovies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/p.aloueichek/Desktop/Desktop/Develop/Xcode/imdbMovies/imdbMovies/NetworkManager.swift"
+                  timestampString = "571741565.974628"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "1474">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in imdbMovies.NetworkManager.getData(completion: (imdbMovies.Result&lt;imdbMovies.Movies&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "imdbMovies"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/p.aloueichek/Desktop/Desktop/Develop/Xcode/imdbMovies/imdbMovies/NetworkManager.swift"
+                  timestampString = "571741565.9763041"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "1558">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
