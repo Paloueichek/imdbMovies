@@ -1,0 +1,6 @@
+framework module Pods_imdbMoviesTests {
+  umbrella header "Pods-imdbMoviesTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
