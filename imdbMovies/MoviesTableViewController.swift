@@ -12,14 +12,28 @@ class MoviesTableViewController:  UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-   private var movies = [Movies]()
+   private var movies = [imdbMovies]()
+           var networkManager: NetworkManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         moviesTableView.register(UINib(nibName: MoviesTableViewCell.className, bundle: nil), forCellReuseIdentifier: "moviesCell")
-        moviesTableView.delegate = self
-        moviesTableView.dataSource = self
+        self.navigationItem.title = "IMDB Top Rated Movies"
+      
+        
+        networkManager?.getData(completion: { [weak self] (result) in
+            switch result {
+            case .success(let data):
+                self?.movies = data.results
+                self?.moviesTableView?.reloadData()
+            case .error(let message):
+                print(message)
+            }
+        })
+        
+        self.moviesTableView.delegate = self
+        self.moviesTableView.dataSource = self
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,10 +41,10 @@ class MoviesTableViewController:  UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       //let cell = Bundle.main.loadNibNamed("MoviesTableViewCell", owner: self, options: nil)?.first as! MoviesTableViewCell
   
         let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
-        
+        let movie = self.movies[indexPath.row]
+        cell.setupCell(model: movie)
         return cell
     }
 }

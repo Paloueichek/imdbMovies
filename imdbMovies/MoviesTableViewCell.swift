@@ -16,7 +16,11 @@ class MoviesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var movieTitleRating: UILabel!
     
-    
+    func setupCell(model: imdbMovies) {
+        
+        self.movieTitleLabel.text = model.title
+        self.movieTitleRating.text = String(format:"%.1f" , model.voteAverage ?? 0.0)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

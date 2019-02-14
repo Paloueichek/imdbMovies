@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         homeVC = MoviesTableViewController(nibName: "MoviesTableViewController", bundle: nil)
         naviApp = UINavigationController(rootViewController: homeVC!)
+        homeVC?.networkManager = NetworkManagerImpl()
         window?.rootViewController = naviApp
         window?.makeKeyAndVisible()
         
