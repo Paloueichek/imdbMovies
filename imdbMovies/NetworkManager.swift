@@ -30,7 +30,6 @@ final class NetworkManagerImpl: NetworkManager {
                 guard error == nil else { return  }
                 let decoder = JSONDecoder()
                 let getValues = try decoder.decode(Movies.self, from: data)
-                print(getValues)
                 DispatchQueue.main.async {
                     let result = Result.success(getValues)
                     completion(result)

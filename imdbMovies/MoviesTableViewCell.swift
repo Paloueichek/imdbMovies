@@ -21,8 +21,14 @@ class MoviesTableViewCell: UITableViewCell {
         
         self.movieTitleLabel.text = model.title
         self.movieTitleRating.text = String(format:"%.1f" , model.voteAverage ?? 0.0)
+        self.movieImage.image = getImage(model: model)
     }
     
+    func getImage(model: imdbMovies) -> UIImage? {
+        let url = "https://image.tmdb.org/t/p/w92//"
+        self.movieImage.kf.setImage(with: URL(string: url + model.posterPath!))
+        return self.movieImage.image
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
