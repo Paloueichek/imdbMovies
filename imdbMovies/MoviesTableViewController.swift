@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoviesTableViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoviesTableViewController:  UIViewController  {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
@@ -36,17 +36,7 @@ class MoviesTableViewController:  UIViewController, UITableViewDelegate, UITable
         self.moviesTableView.dataSource = self
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     return  movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-  
-        let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
-        let movie = self.movies[indexPath.row]
-        cell.setupCell(model: movie)
-        return cell
-    }
+ 
 }
 
 extension NSObject {
@@ -56,5 +46,20 @@ extension NSObject {
     
     class var className: String {
         return String(describing: self)
+    }
+}
+
+extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource{
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
+        let movie = self.movies[indexPath.row]
+        cell.setupCell(model: movie)
+        return cell
     }
 }
