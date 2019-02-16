@@ -9,7 +9,6 @@
 import Foundation
 
 struct imdbMovies: Codable {
-    let page: Int?
     let voteAverage: Double?
     let title: String?
     let popularity: Double?
@@ -19,7 +18,6 @@ struct imdbMovies: Codable {
     
     enum CodingKeys: String, CodingKey {
         
-        case page = "page"
         case voteAverage = "vote_average"
         case title, popularity
         case posterPath = "poster_path"

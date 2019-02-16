@@ -12,25 +12,22 @@ class MoviesTableViewController:  UIViewController  {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-   private var movies = [imdbMovies]()
-           var networkManager: NetworkManager?
-
+    var site: String = "https://api.themoviedb.org3/movie/top_rated?"
+    
+    private var viewModel: MoviesTableViewControllerVM!
+    private var shouldShowLoadingCell = false
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         moviesTableView.register(UINib(nibName: MoviesTableViewCell.className, bundle: nil), forCellReuseIdentifier: "moviesCell")
         self.navigationItem.title = "IMDB Top Rated Movies"
       
+        let request = MovieRequest.from(site: site)
+
+        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as! MoviesTableViewControllerDelegate)
         
-        networkManager?.getData(completion: { [weak self] (result) in
-            switch result {
-            case .success(let data):
-                self?.movies = data.results
-                self?.moviesTableView?.reloadData()
-            case .error(let message):
-                print(message)
-            }
-        })
+        viewModel.fetchMovies()
         
         self.moviesTableView.delegate = self
         self.moviesTableView.dataSource = self
@@ -52,14 +49,24 @@ extension NSObject {
 extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource{
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  movies.count
+        return  viewModel.currentCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
-        let movie = self.movies[indexPath.row]
-        cell.setupCell(model: movie)
+        cell.setupCell(model: viewModel.imdbMovie(at: indexPath.row))
+        
         return cell
+    }
+}
+
+extension MoviesTableViewController: MoviesTableViewControllerDelegate {
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        moviesTableView.reloadData()
+    }
+    
+    func onFetchFailed(with reason: String) {
+        print("error fetching data")
     }
 }
