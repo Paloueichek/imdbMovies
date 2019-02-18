@@ -17,7 +17,7 @@ final class MoviesTableViewControllerVM {
     
     weak var coordinator: MovieMainTableViewCoordinator?
     private weak var delegate: MoviesTableViewControllerDelegate?
-    private var imdbMovies: [imdbMovies] = []
+    private var imdbMovies: [ImdbMovies] = []
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false
@@ -37,7 +37,7 @@ final class MoviesTableViewControllerVM {
         return imdbMovies.count
     }
     
-    func imdbMovie(at index: Int) -> imdbMovies {
+    func imdbMovie(at index: Int) -> ImdbMovies {
         return imdbMovies[index]
     }
     
@@ -71,7 +71,7 @@ final class MoviesTableViewControllerVM {
         }
     }
     
-    private func calcuclateIndexPathsToReload(from newMovies: [imdbMovies]) -> [IndexPath]{
+    private func calcuclateIndexPathsToReload(from newMovies: [ImdbMovies]) -> [IndexPath]{
         let startIndex = imdbMovies.count - newMovies.count
         let endIndex = startIndex + newMovies.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }

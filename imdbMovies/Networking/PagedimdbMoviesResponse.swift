@@ -10,7 +10,7 @@ import Foundation
 
 struct PagedimdbMoviesResponse: Decodable {
     let page, totalResults, totalPages: Int
-    let results: [imdbMovies]
+    let results: [ImdbMovies]
     
     enum CodingKeys: String, CodingKey {
         case page

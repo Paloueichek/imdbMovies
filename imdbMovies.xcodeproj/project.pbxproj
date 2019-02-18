@@ -280,6 +280,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 17FD58DA22118C0500DBAD1A /* Build configuration list for PBXNativeTarget "imdbMovies" */;
 			buildPhases = (
+				1795273A221AFEDF00D7E15C /* ShellScript */,
 				F37701017C1B75BBC1410592 /* [CP] Check Pods Manifest.lock */,
 				17FD58AB22118C0400DBAD1A /* Sources */,
 				17FD58AC22118C0400DBAD1A /* Frameworks */,
@@ -406,6 +407,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1795273A221AFEDF00D7E15C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		9D9A62793CE75F8650BD26B1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

@@ -15,9 +15,7 @@ extension URLRequest {
         guard let parameters = parameters else {
             return self
         }
-        
         var encodedURLRequest = self
-        
         if let url = self.url,
             let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
             !parameters.isEmpty {

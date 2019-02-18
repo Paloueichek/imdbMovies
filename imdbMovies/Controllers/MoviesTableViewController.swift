@@ -25,7 +25,7 @@ class MoviesTableViewController:  UIViewController, AlertDisplayer  {
         
         let request = MovieRequest.from(site: site)
 
-        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as! MoviesTableViewControllerDelegate)
+        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as MoviesTableViewControllerDelegate)
         
         viewModel.fetchMovies()
         self.moviesTableView.delegate = self
@@ -40,7 +40,7 @@ extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as! MoviesTableViewCell
+        guard let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as? MoviesTableViewCell else { return UITableViewCell() }
         if isLoadingCell(for: indexPath){
             cell.setupCell(model: .none)
         } else {

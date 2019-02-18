@@ -12,9 +12,9 @@ import UIKit
 class MovieDetailCoordinator: Coordinator {
   
     let presenter: UINavigationController
-    var movies: [imdbMovies]
+    var movies: [ImdbMovies]
     
-    init(presenter: UINavigationController, movies: [imdbMovies]) {
+    init(presenter: UINavigationController, movies: [ImdbMovies]) {
         self.presenter = presenter
         self.movies = movies
         let detailVC = MovieDetailViewController(nibName: "MoviesTableViewController", bundle: nil)

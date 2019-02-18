@@ -22,7 +22,7 @@ class MoviesTableViewCell: UITableViewCell {
     }
     
     
-    func setupCell(model: imdbMovies?) {
+    func setupCell(model: ImdbMovies?) {
         if let model = model {
         self.movieTitleLabel.text = model.title
         self.movieTitleRating.text = String(format:"%.1f" , model.voteAverage ?? 0.0)
@@ -34,7 +34,7 @@ class MoviesTableViewCell: UITableViewCell {
         }
     }
     
-    func getImage(model: imdbMovies) -> UIImage? {
+    func getImage(model: ImdbMovies) -> UIImage? {
         let url = "https://image.tmdb.org/t/p/w92//"
         self.movieImage.kf.setImage(with: URL(string: url + model.posterPath!))
         return self.movieImage.image

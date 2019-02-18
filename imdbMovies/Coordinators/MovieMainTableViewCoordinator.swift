@@ -12,20 +12,15 @@ import UIKit
 class MovieMainTableViewCoordinator: Coordinator {
     let window: UIWindow
     var rootViewController: UINavigationController
-    
-    
     init(window: UIWindow) {
         self.window = window
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = true
         let homeVC = MoviesTableViewController(nibName: "MoviesTableViewController", bundle: nil)
         rootViewController.pushViewController(homeVC, animated: false)
-        
     }
-    
     func start() {
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
-        
     }
 }
