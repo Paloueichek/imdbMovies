@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct imdbMovies: Codable {
+struct imdbMovies: Decodable {
     let voteAverage: Double?
     let title: String?
     let popularity: Double?

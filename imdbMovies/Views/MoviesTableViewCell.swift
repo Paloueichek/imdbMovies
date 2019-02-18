@@ -17,11 +17,21 @@ class MoviesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var movieTitleRating: UILabel!
     
-    func setupCell(model: imdbMovies) {
-        
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
+    
+    func setupCell(model: imdbMovies?) {
+        if let model = model {
         self.movieTitleLabel.text = model.title
         self.movieTitleRating.text = String(format:"%.1f" , model.voteAverage ?? 0.0)
         self.movieImage.image = getImage(model: model)
+        } else {
+            self.movieTitleLabel.text = ""
+            self.movieTitleRating.text = ""
+            self.movieImage.image = nil
+        }
     }
     
     func getImage(model: imdbMovies) -> UIImage? {

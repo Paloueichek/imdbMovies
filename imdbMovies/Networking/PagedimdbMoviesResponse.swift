@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PagedimdbMoviesResponse: Codable {
+struct PagedimdbMoviesResponse: Decodable {
     let page, totalResults, totalPages: Int
     let results: [imdbMovies]
     
