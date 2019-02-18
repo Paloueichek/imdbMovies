@@ -167,7 +167,8 @@
 				1795272B221A8E8600D7E15C /* AlertDisplayer.swift */,
 				1795272D221A8F7000D7E15C /* NSObject + Extensions.swift */,
 			);
-			path = Extensions;
+			name = Extensions;
+			path = Views/Extensions;
 			sourceTree = "<group>";
 		};
 		17FD58A622118C0400DBAD1A = {
@@ -195,9 +196,9 @@
 		17FD58B122118C0400DBAD1A /* imdbMovies */ = {
 			isa = PBXGroup;
 			children = (
+				1795272A221A8E7100D7E15C /* Extensions */,
 				17FD58B222118C0400DBAD1A /* AppDelegate.swift */,
 				17FD58BE22118C0500DBAD1A /* LaunchScreen.storyboard */,
-				1795272A221A8E7100D7E15C /* Extensions */,
 				1795272922183FA900D7E15C /* Controllers */,
 				179527262218368D00D7E15C /* ViewModels */,
 				17952721221830B700D7E15C /* Networking */,
