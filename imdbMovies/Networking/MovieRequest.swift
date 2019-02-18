@@ -1,6 +1,6 @@
 //
 //  MovieRequest.swift
-//  imdbMovies
+//  imdbMovie
 //
 //  Created by Patrick Aloueichek on 2/16/19.
 //  Copyright © 2019 Patrick Aloueichek. All rights reserved.

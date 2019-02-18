@@ -14,8 +14,9 @@ protocol MoviesTableViewControllerDelegate: class {
 }
 
 final class MoviesTableViewControllerVM {
-    private weak var delegate: MoviesTableViewControllerDelegate?
     
+    weak var coordinator: MovieMainTableViewCoordinator?
+    private weak var delegate: MoviesTableViewControllerDelegate?
     private var imdbMovies: [imdbMovies] = []
     private var currentPage = 1
     private var total = 0
@@ -49,9 +50,6 @@ final class MoviesTableViewControllerVM {
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
-//                    self.isFetchInProgress = false
-//                    self.imdbMovies.append(contentsOf: response.results)
-//                    self.delegate?.onFetchCompleted(with: .none)
                     self.currentPage += 1
                     self.isFetchInProgress = false
                     
@@ -64,7 +62,6 @@ final class MoviesTableViewControllerVM {
                     } else {
                         self.delegate?.onFetchCompleted(with: .none)
                     }
-                    
                 }
             
             case .error(let error):
@@ -72,7 +69,6 @@ final class MoviesTableViewControllerVM {
                 self.delegate?.onFetchFailed(with: error)
             }
         }
-        
     }
     
     private func calcuclateIndexPathsToReload(from newMovies: [imdbMovies]) -> [IndexPath]{

@@ -1,5 +1,5 @@
 //
-//  MainCoordinator.swift
+//  Coordinator.swift
 //  imdbMovies
 //
 //  Created by Patrick Aloueichek on 2/12/19.
@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-class MainCoordinator{
- 
+protocol Coordinator {
+    func start()
 }
