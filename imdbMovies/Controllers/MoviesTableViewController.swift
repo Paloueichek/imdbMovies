@@ -12,10 +12,7 @@ class MoviesTableViewController: UIViewController, AlertDisplayer {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    var site: String = "https://api.themoviedb.com"
-    private var movies = [ImdbMovies]()
-    private var filteredMovies = [ImdbMovies]()
-    private var viewModel: MoviesTableViewControllerVM!
+    var viewModel: MoviesTableViewControllerVM!
     private var shouldShowLoadingCell = false
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -25,27 +22,27 @@ class MoviesTableViewController: UIViewController, AlertDisplayer {
         setupMovieTableView()
         setupSearch()
     }
+
     private func setupSearch() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
-    
+
     func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
-    
+
     private func setupMovieTableView() {
         moviesTableView.register(UINib(nibName: MoviesTableViewCell.className,
                                        bundle: nil), forCellReuseIdentifier: "moviesCell")
-        self.navigationItem.title = "IMDB Top Rated"
-        let request = MovieRequest.from(site: site)
-        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as MoviesTableViewControllerDelegate, imdbMovies: movies)
+        navigationItem.title = "IMDB Top Rated"
+
         viewModel.fetchMovies()
-        self.moviesTableView.delegate = self
-        self.moviesTableView.dataSource = self
-        self.moviesTableView.prefetchDataSource = self
+        moviesTableView.delegate = self
+        moviesTableView.dataSource = self
+        moviesTableView.prefetchDataSource = self
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -53,7 +50,7 @@ class MoviesTableViewController: UIViewController, AlertDisplayer {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-            filteredMovies = viewModel.imdbMovies.filter({(movie: ImdbMovies) -> Bool in
+            viewModel.filteredMovies = viewModel.imdbMovies.filter({(movie: ImdbMovies) -> Bool in
                 guard let movieSearch = movie.title?.lowercased().contains(searchText.lowercased()) else { return false }
                 return movieSearch
             })
@@ -64,9 +61,14 @@ class MoviesTableViewController: UIViewController, AlertDisplayer {
 extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
-            return filteredMovies.count
+            return viewModel.filteredMovies.count
         }
         return viewModel.totalCount
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMovie = viewModel.filteredMovies[indexPath.row]
+        viewModel.coordinator?.openMovieDetail(forRequested: selectedMovie)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,7 +76,7 @@ extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource 
             as? MoviesTableViewCell else { return UITableViewCell() }
         let movie: ImdbMovies
         if isFiltering() {
-            movie = filteredMovies[indexPath.row]
+            movie = viewModel.filteredMovies[indexPath.row]
             cell.setupCell(model: movie)
         } else {
             if isLoadingCell(for: indexPath) {

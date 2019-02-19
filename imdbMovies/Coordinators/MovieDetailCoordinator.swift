@@ -10,16 +10,18 @@ import Foundation
 import UIKit
 
 class MovieDetailCoordinator: Coordinator {
-    let presenter: UINavigationController
-    var movies: [ImdbMovies]
-    
-    init(presenter: UINavigationController, movies: [ImdbMovies]) {
+    private let presenter: UINavigationController
+    private var movieDetailViewController: MovieDetailViewController?
+    private var movie: ImdbMovies
+
+    init(presenter: UINavigationController, movie: ImdbMovies) {
         self.presenter = presenter
-        self.movies = movies
-        let detailVC = MovieDetailViewController(nibName: "MoviesTableViewController", bundle: nil)
-        presenter.pushViewController(detailVC, animated: false)
+        self.movie = movie
     }
     func start() {
-       
+        let movieDetailsVM = MoviesDetailVM(movie: movie)
+        let movieDetailViewController = MovieDetailViewController(viewModel: movieDetailsVM)
+        presenter.pushViewController(movieDetailViewController, animated: false)
+        self.movieDetailViewController = movieDetailViewController
     }
 }

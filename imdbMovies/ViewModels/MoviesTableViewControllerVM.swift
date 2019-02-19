@@ -14,25 +14,28 @@ protocol MoviesTableViewControllerDelegate: class {
 }
 
 final class MoviesTableViewControllerVM {
-    
     weak var coordinator: MovieMainTableViewCoordinator?
     private weak var delegate: MoviesTableViewControllerDelegate?
-            var imdbMovies: [ImdbMovies] = []
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false
-    let request: MovieRequest
+
     let client = NetworkManagerImpl()
-    
-    init(request: MovieRequest, delegate: MoviesTableViewControllerDelegate, imdbMovies: [ImdbMovies]) {
-        self.request = request
+
+    let site = "https://api.themoviedb.com"
+
+    var imdbMovies = [ImdbMovies]()
+    var filteredMovies = [ImdbMovies]()
+
+    init(delegate: MoviesTableViewControllerDelegate, coordinator: MovieMainTableViewCoordinator) {
         self.delegate = delegate
-        self.imdbMovies = imdbMovies
+        self.coordinator = coordinator
     }
+
     var totalCount: Int {
         return total
     }
-    
+
     var currentCount: Int {
         return imdbMovies.count
     }
@@ -42,6 +45,7 @@ final class MoviesTableViewControllerVM {
     }
     
     func fetchMovies() {
+        let request = MovieRequest.from(site: site)
         guard !isFetchInProgress else { return }
         isFetchInProgress = true
         client.getData(with: request, page: currentPage) { result in

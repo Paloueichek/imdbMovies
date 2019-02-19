@@ -19,4 +19,3 @@ struct PagedimdbMoviesResponse: Decodable {
         case results
     }
 }
-

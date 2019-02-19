@@ -11,4 +11,9 @@ import UIKit
 
 class MoviesDetailVM {
     weak var coordinator: MovieMainTableViewCoordinator?
+    let movie: ImdbMovies
+
+    init(movie: ImdbMovies) {
+        self.movie = movie
+    }
 }

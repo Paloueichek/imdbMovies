@@ -15,13 +15,21 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var movieGenreLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var movieDescriptionLabel: UILabel!
-    
-    
-    
+
+    let viewModel: MoviesDetailVM
+
+    init(viewModel: MoviesDetailVM) {
+        self.viewModel = viewModel
+        super.init(nibName: MovieDetailViewController.className, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        movieTitleLabel.text = viewModel.movie.title
     }
 
 }
