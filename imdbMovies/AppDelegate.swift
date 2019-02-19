@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import CoreData
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         let window = UIWindow(frame: UIScreen.main.bounds)
         let applicationCoordinator = MovieMainTableViewCoordinator(window: window)
         self.window = window
@@ -30,4 +27,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-

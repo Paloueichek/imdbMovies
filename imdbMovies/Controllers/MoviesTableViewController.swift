@@ -8,43 +8,80 @@
 
 import UIKit
 
-class MoviesTableViewController:  UIViewController, AlertDisplayer  {
+class MoviesTableViewController: UIViewController, AlertDisplayer {
     
     @IBOutlet weak var moviesTableView: UITableView!
     
-    var site: String = "https://api.themoviedb.org3/movie/top_rated?"
-    
+    var site: String = "https://api.themoviedb.com"
+    private var movies = [ImdbMovies]()
+    private var filteredMovies = [ImdbMovies]()
     private var viewModel: MoviesTableViewControllerVM!
     private var shouldShowLoadingCell = false
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        moviesTableView.register(UINib(nibName: MoviesTableViewCell.className, bundle: nil), forCellReuseIdentifier: "moviesCell")
-        self.navigationItem.title = "IMDB Top Rated Movies"
-        
+        setupMovieTableView()
+        setupSearch()
+    }
+    private func setupSearch() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    private func setupMovieTableView() {
+        moviesTableView.register(UINib(nibName: MoviesTableViewCell.className,
+                                       bundle: nil), forCellReuseIdentifier: "moviesCell")
+        self.navigationItem.title = "IMDB Top Rated"
         let request = MovieRequest.from(site: site)
-
-        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as MoviesTableViewControllerDelegate)
-        
+        viewModel = MoviesTableViewControllerVM(request: request, delegate: self as MoviesTableViewControllerDelegate, imdbMovies: movies)
         viewModel.fetchMovies()
         self.moviesTableView.delegate = self
         self.moviesTableView.dataSource = self
         self.moviesTableView.prefetchDataSource = self
     }
+    
+    func searchBarIsEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+            filteredMovies = viewModel.imdbMovies.filter({(movie: ImdbMovies) -> Bool in
+                guard let movieSearch = movie.title?.lowercased().contains(searchText.lowercased()) else { return false }
+                return movieSearch
+            })
+        self.moviesTableView.reloadData()
+    }
 }
 
 extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  viewModel.totalCount
+        if isFiltering() {
+            return filteredMovies.count
+        }
+        return viewModel.totalCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell") as? MoviesTableViewCell else { return UITableViewCell() }
-        if isLoadingCell(for: indexPath){
-            cell.setupCell(model: .none)
+        guard let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell")
+            as? MoviesTableViewCell else { return UITableViewCell() }
+        let movie: ImdbMovies
+        if isFiltering() {
+            movie = filteredMovies[indexPath.row]
+            cell.setupCell(model: movie)
         } else {
-                cell.setupCell(model: viewModel.imdbMovie(at: indexPath.row))
+            if isLoadingCell(for: indexPath) {
+                cell.setupCell(model: .none)
+            } else {
+                cell.setupCell(model: self.viewModel.imdbMovie(at: indexPath.row))
+            }
         }
         return cell
     }
@@ -63,7 +100,7 @@ extension MoviesTableViewController: MoviesTableViewControllerDelegate {
     func onFetchFailed(with reason: String) {
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
-        displayAlert(with: title , message: reason, actions: [action])
+        displayAlert(with: title, message: reason, actions: [action])
     }
 }
 
@@ -84,5 +121,11 @@ private extension MoviesTableViewController {
         let indexPathsForVisibleRows = moviesTableView.indexPathsForVisibleRows ?? []
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
+    }
+}
+
+extension MoviesTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
     }
 }

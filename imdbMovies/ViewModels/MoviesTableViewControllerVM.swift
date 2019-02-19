@@ -17,17 +17,17 @@ final class MoviesTableViewControllerVM {
     
     weak var coordinator: MovieMainTableViewCoordinator?
     private weak var delegate: MoviesTableViewControllerDelegate?
-    private var imdbMovies: [ImdbMovies] = []
+            var imdbMovies: [ImdbMovies] = []
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false
-    
     let request: MovieRequest
     let client = NetworkManagerImpl()
     
-    init(request: MovieRequest, delegate: MoviesTableViewControllerDelegate) {
+    init(request: MovieRequest, delegate: MoviesTableViewControllerDelegate, imdbMovies: [ImdbMovies]) {
         self.request = request
         self.delegate = delegate
+        self.imdbMovies = imdbMovies
     }
     var totalCount: Int {
         return total
@@ -43,19 +43,15 @@ final class MoviesTableViewControllerVM {
     
     func fetchMovies() {
         guard !isFetchInProgress else { return }
-        
         isFetchInProgress = true
-        
         client.getData(with: request, page: currentPage) { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
                     self.currentPage += 1
                     self.isFetchInProgress = false
-                    
                     self.total = response.totalResults
                     self.imdbMovies.append(contentsOf: response.results)
-                    
                     if response.page > 1 {
                         let indexPathsToReload = self.calcuclateIndexPathsToReload(from: response.results)
                         self.delegate?.onFetchCompleted(with: indexPathsToReload)

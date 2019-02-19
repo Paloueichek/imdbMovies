@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class MovieDetailCoordinator: Coordinator {
-  
     let presenter: UINavigationController
     var movies: [ImdbMovies]
     
@@ -20,7 +19,6 @@ class MovieDetailCoordinator: Coordinator {
         let detailVC = MovieDetailViewController(nibName: "MoviesTableViewController", bundle: nil)
         presenter.pushViewController(detailVC, animated: false)
     }
-    
     func start() {
        
     }
