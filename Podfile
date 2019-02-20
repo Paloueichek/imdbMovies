@@ -5,6 +5,7 @@ target 'imdbMovies' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
 pod 'Kingfisher', '~> 5.0'
 pod 'SwiftLint'
+pod 'LicensePlist'
   use_frameworks!
 
   # Pods for imdbMovies
