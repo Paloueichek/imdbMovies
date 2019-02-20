@@ -11,7 +11,7 @@ import Foundation
 struct PagedimdbMoviesResponse: Decodable {
     let page, totalResults, totalPages: Int
     let results: [ImdbMovies]
-    
+
     enum CodingKeys: String, CodingKey {
         case page
         case totalResults = "total_results"

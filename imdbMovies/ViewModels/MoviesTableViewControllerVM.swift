@@ -39,11 +39,11 @@ final class MoviesTableViewControllerVM {
     var currentCount: Int {
         return imdbMovies.count
     }
-    
+
     func imdbMovie(at index: Int) -> ImdbMovies {
         return imdbMovies[index]
     }
-    
+
     func fetchMovies() {
         let request = MovieRequest.from(site: site)
         guard !isFetchInProgress else { return }
@@ -63,15 +63,15 @@ final class MoviesTableViewControllerVM {
                         self.delegate?.onFetchCompleted(with: .none)
                     }
                 }
-            
+
             case .error(let error):
                 self.isFetchInProgress = false
                 self.delegate?.onFetchFailed(with: error)
             }
         }
     }
-    
-    private func calcuclateIndexPathsToReload(from newMovies: [ImdbMovies]) -> [IndexPath]{
+
+    private func calcuclateIndexPathsToReload(from newMovies: [ImdbMovies]) -> [IndexPath] {
         let startIndex = imdbMovies.count - newMovies.count
         let endIndex = startIndex + newMovies.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }

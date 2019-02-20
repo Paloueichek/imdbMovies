@@ -12,7 +12,6 @@ class MovieDetailViewController: UIViewController {
 
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var movieGenreLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var movieDescriptionLabel: UILabel!
 
@@ -29,7 +28,30 @@ class MovieDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieTitleLabel.text = viewModel.movie.title
+        setupDetails(model: viewModel)
     }
 
+    private func setupDetails(model: MoviesDetailVM?) {
+        if let model = model {
+        movieTitleLabel.text = viewModel.movie.title
+        releaseDateLabel.text = viewModel.movie.releaseDate
+        movieDescriptionLabel.text = viewModel.movie.overview
+        movieDescriptionLabel.numberOfLines = 12
+        DispatchQueue.main.async {
+            self.movieImageView.image = self.getImage(model: model)
+            }
+        } else {
+            movieTitleLabel.text = ""
+            movieTitleLabel.text = ""
+            movieDescriptionLabel.text = ""
+            movieImageView.image = nil
+
+        }
+    }
+
+    func getImage(model: MoviesDetailVM) -> UIImage? {
+        let url = "https://image.tmdb.org/t/p/w500//"
+        self.movieImageView.kf.setImage(with: URL(string: url + model.movie.posterPath!))
+        return self.movieImageView.image
+    }
 }

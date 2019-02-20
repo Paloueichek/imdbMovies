@@ -9,7 +9,6 @@
 import Foundation
 
 struct MovieRequest {
-   
     var path: String {
         return "3/movie/top_rated"
     }

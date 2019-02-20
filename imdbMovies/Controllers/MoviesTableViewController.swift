@@ -9,13 +9,11 @@
 import UIKit
 
 class MoviesTableViewController: UIViewController, AlertDisplayer {
-    
     @IBOutlet weak var moviesTableView: UITableView!
-    
     var viewModel: MoviesTableViewControllerVM!
     private var shouldShowLoadingCell = false
     let searchController = UISearchController(searchResultsController: nil)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,11 +42,10 @@ class MoviesTableViewController: UIViewController, AlertDisplayer {
         moviesTableView.dataSource = self
         moviesTableView.prefetchDataSource = self
     }
-    
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-    
+
     func filterContentForSearchText(_ searchText: String) {
             viewModel.filteredMovies = viewModel.imdbMovies.filter({(movie: ImdbMovies) -> Bool in
                 guard let movieSearch = movie.title?.lowercased().contains(searchText.lowercased()) else { return false }
@@ -67,10 +64,15 @@ extension MoviesTableViewController: UITableViewDelegate, UITableViewDataSource 
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedMovie = viewModel.filteredMovies[indexPath.row]
-        viewModel.coordinator?.openMovieDetail(forRequested: selectedMovie)
+        if isFiltering() {
+            let selectedMovie = viewModel.filteredMovies[indexPath.row]
+            viewModel.coordinator?.openMovieDetail(forRequested: selectedMovie)
+        } else {
+        let selectedMovie = viewModel.imdbMovies[indexPath.row]
+            viewModel.coordinator?.openMovieDetail(forRequested: selectedMovie)
+        }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = moviesTableView.dequeueReusableCell(withIdentifier: "moviesCell")
             as? MoviesTableViewCell else { return UITableViewCell() }
@@ -98,7 +100,6 @@ extension MoviesTableViewController: MoviesTableViewControllerDelegate {
         let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         moviesTableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
-    
     func onFetchFailed(with reason: String) {
         let title = "Warning"
         let action = UIAlertAction(title: "OK", style: .default)
@@ -118,7 +119,6 @@ private extension MoviesTableViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= viewModel.currentCount
     }
-    
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
         let indexPathsForVisibleRows = moviesTableView.indexPathsForVisibleRows ?? []
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)

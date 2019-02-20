@@ -9,7 +9,7 @@
 import Foundation
 
 protocol NetworkManager {
-    func getData(with request: MovieRequest, page: Int, completion: @escaping(Result<PagedimdbMoviesResponse>) ->())
+    func getData(with request: MovieRequest, page: Int, completion: @escaping(Result<PagedimdbMoviesResponse>) -> Void)
 }
 
 final class NetworkManagerImpl: NetworkManager {
@@ -17,17 +17,17 @@ final class NetworkManagerImpl: NetworkManager {
     private lazy var baseURL: URL = {
         return URL(string: "https://api.themoviedb.org")!
     }()
-    
+
     let session: URLSession
     init(session: URLSession = URLSession.shared) {
         self.session = session
     }
-    func getData(with request: MovieRequest, page: Int ,completion: @escaping(Result<PagedimdbMoviesResponse>) ->()) {
+    func getData(with request: MovieRequest, page: Int, completion: @escaping(Result<PagedimdbMoviesResponse>) -> Void) {
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
         let parameters = ["page": "\(page)"].merging(request.parameters, uniquingKeysWith: +)
         let encodedURLRequest = urlRequest.encode(with: parameters)
-        
-       session.dataTask(with: encodedURLRequest, completionHandler: { (data,_,error) in
+
+       session.dataTask(with: encodedURLRequest, completionHandler: { (data, _, error ) in
             do {
                 guard let data = data else { return }
                 guard error == nil else { return  }

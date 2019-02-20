@@ -15,9 +15,8 @@ struct ImdbMovies: Decodable {
     let posterPath: String?
     let genreIDS: [Int?]
     let overview, releaseDate: String?
-    
+
     enum CodingKeys: String, CodingKey {
-        
         case voteAverage = "vote_average"
         case title, popularity
         case posterPath = "poster_path"
